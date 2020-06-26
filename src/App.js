@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./styles.css";
 
 function App() {
+
+  const [repositories, setRepositories] = useState(['Repositório 1'])
   async function handleAddRepository() {
-    // TODO
+    setRepositories(prevState => [...prevState, 'Desafio ReactJS'])  
   }
 
   async function handleRemoveRepository(id) {
-    // TODO
+    setRepositories(prevState => prevState.filter((item, index) => index !== id))
   }
 
   return (
     <div>
       <ul data-testid="repository-list">
-        <li>
-          Repositório 1
-
-          <button onClick={() => handleRemoveRepository(1)}>
-            Remover
-          </button>
-        </li>
+        {repositories.map((repository, index) => (
+          <li key={index}>
+            {repository}
+            <button onClick={() => handleRemoveRepository(index)}>
+              Remover
+            </button>
+          </li>
+        ))}
       </ul>
 
       <button onClick={handleAddRepository}>Adicionar</button>
